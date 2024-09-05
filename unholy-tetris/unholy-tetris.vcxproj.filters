@@ -50,8 +50,27 @@
     <ClInclude Include="src\vendor\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\glfw-3.4\include\GLFW\glfw3native.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glfw-3.4\include\GLFW\glfw3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glad\include\KHR\khrplatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glad\include\glad\gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\shaders.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="vendor\glfw-3.4\lib\glfw3dll.lib" />
+    <Library Include="vendor\glfw-3.4\lib\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\glfw-3.4\lib\glfw3.dll" />
   </ItemGroup>
 </Project>

@@ -152,11 +152,22 @@
     <ClInclude Include="src\objects.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\texture.h" />
+    <ClInclude Include="vendor\glad\include\glad\gl.h" />
+    <ClInclude Include="vendor\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="vendor\glfw-3.4\include\GLFW\glfw3.h" />
+    <ClInclude Include="vendor\glfw-3.4\include\GLFW\glfw3native.h" />
     <ClInclude Include="vendor\mathc\mathc\mathc.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\shaders.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="vendor\glfw-3.4\lib\glfw3.lib" />
+    <Library Include="vendor\glfw-3.4\lib\glfw3dll.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\glfw-3.4\lib\glfw3.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
