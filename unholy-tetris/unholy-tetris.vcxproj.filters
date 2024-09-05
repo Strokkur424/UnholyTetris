@@ -52,10 +52,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="assets\shaders\basic_vertex.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="assets\shaders\basic_fragment.frag" />
     <Text Include="src\shaders.h" />
   </ItemGroup>
 </Project>

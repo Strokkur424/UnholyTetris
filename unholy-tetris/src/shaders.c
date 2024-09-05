@@ -7,10 +7,9 @@ static unsigned int* createShader(GLenum shaderType, const char* path)
 {
 	// Load source code from file
 	FILE* file = fopen(path, "r");
-
 	if (!file)
 	{
-		fprintf(stderr, "File %s not found!", path);
+		fprintf(stderr, "Couldn't open file %s!\n", path);
 		return 0;
 	}
 
@@ -19,21 +18,22 @@ static unsigned int* createShader(GLenum shaderType, const char* path)
 	rewind(file);
 
 	char* source;
-	if (!(source = malloc(fileSize + 1))) 
+	if (!(source = malloc(fileSize + 1)))
 	{
-		fprintf(stderr, "Failed to allocate memory for shader source for %s", path);
+		fprintf(stderr, "Failed to allocate memory for shader source for %s\n", path);
 		return 0;
 	}
 
 	if (!fread(source, fileSize, 1, file))
 	{
-		fprintf(stderr, "Failed to read contents of shader source from %s", path);
+		fprintf(stderr, "Failed to read contents of shader source from %s\n", path);
 		free(source);
 		return 0;
 	}
 
-	if (!fclose(file)) {
-		fprintf(stderr, "Failed to close file %s", path);
+	if (!fclose(file))
+	{
+		fprintf(stderr, "Failed to close file %s\n", path);
 	}
 
 	// Load ogl shader
@@ -50,7 +50,7 @@ static unsigned int* createShader(GLenum shaderType, const char* path)
 	{
 		glGetShaderInfoLog(shader, 512, NULL, exception);
 		fprintf(stderr, "Shader compilation for shader %s failed. Error output:\n", path);
-		fprintf(stderr, exception);
+		fprintf(stderr, "%s\n", exception);
 	}
 
 	// Free memory for shader source

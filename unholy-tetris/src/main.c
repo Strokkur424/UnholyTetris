@@ -29,18 +29,16 @@ TextureBuffer blockMagenta = 0;
 ShaderBuffer basicVertex = 0;
 ShaderBuffer basicFragment = 0;
 
-
 // Main method
-int main()
+int Main()
 {
-
 	if (!glfwInit())
 	{
 		fprintf(stderr, "Failed to intialize glfw - Terminating...\n");
 		return -1;
 	}
 
-	if (!init()) 
+	if (!init())
 	{
 		return -1;
 	}
@@ -50,9 +48,9 @@ int main()
 		return -1;
 	}
 
-	while (!glfwWindowShouldClose(window)) 
+	while (!glfwWindowShouldClose(window))
 	{
-		tick(); 
+		tick();
 	}
 
 	cleanup();
@@ -96,6 +94,8 @@ int postInit()
 	{
 		return 0;
 	}
+
+	return 1;
 }
 
 int loadTextures()
@@ -147,6 +147,8 @@ int loadTextures()
 		fprintf(stderr, "Failed to load texture for block with color: magenta");
 		return 0;
 	}
+
+	return 1;
 }
 
 int loadShaders()
@@ -160,6 +162,8 @@ int loadShaders()
 	{
 		return 0;
 	}
+
+	return 1;
 }
 
 void tick()
@@ -231,4 +235,11 @@ void frameBufferSizeChange(GLFWwindow* window, int newWidth, int newHeight)
 {
 	width = newWidth;
 	height = newHeight;
+}
+
+
+int main()
+{
+	printf("\nProgram returned with error code: %i \nPress ENTER to continue...\n", Main());
+	getchar();
 }
