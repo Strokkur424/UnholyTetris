@@ -5,6 +5,7 @@
 #include "main.h"
 #include "texture.h"
 #include "shaders.h"
+#include "buffers.h"
 
 // Constants
 const char* title = "Unholy Tetris";
@@ -26,11 +27,20 @@ TextureBuffer blockPurple = 0;
 TextureBuffer blockMagenta = 0;
 
 // Shaders
-ShaderBuffer basicVertex = 0;
-ShaderBuffer basicFragment = 0;
+Program basicProgram = 0;
+
+// Vertex Buffers
+VertexBuffer triangleBuffer = 0;
+
+// Vertex data
+float predefined_vertices[] = {
+	-0.5f, -0.5f, 0.0f,
+	 0.5f, -0.5f, 0.0f,
+	 0.0f,  0.5f, 0.0f
+};
 
 // Main method
-int Main()
+static int Main()
 {
 	if (!glfwInit())
 	{
@@ -55,6 +65,7 @@ int Main()
 
 	cleanup();
 	glfwTerminate();
+	return 0;
 }
 
 // Logical methods
@@ -66,7 +77,7 @@ int init()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	// glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	window = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (!window)
@@ -91,6 +102,11 @@ int postInit()
 	}
 
 	if (!loadShaders())
+	{
+		return 0;
+	}
+
+	if (!loadBuffers())
 	{
 		return 0;
 	}
@@ -153,34 +169,55 @@ int loadTextures()
 
 int loadShaders()
 {
-	if (!(basicVertex = Shader.createShader(GL_VERTEX_SHADER, "assets/shaders/basic_vertex.vert")))
+	basicProgram = Shader.createProgram("assets/shaders/basic_vertex.vert", "assets/shaders/basic_fragment.frag");
+	if (basicProgram == 0)
 	{
-		return 0;
-	}
-
-	if (!(basicFragment = Shader.createShader(GL_FRAGMENT_SHADER, "assets/shaders/basic_fragment.frag")))
-	{
+		fprintf(stderr, "Exception whilst creating basic shader.\n");
 		return 0;
 	}
 
 	return 1;
 }
 
-void tick()
+int loadBuffers()
 {
+	triangleBuffer = createVertexArrayObject(predefined_vertices);
+	if (triangleBuffer == 0)
+	{
+		return 0;
+	}
+
+
+	return 1;
+}
+
+void tick()
+{	
 	glfwPollEvents();
 
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(0x040204);
-	glfwSwapBuffers(window);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+	glUseProgram(basicProgram);
+	
+	float timeValue = glfwGetTime();
+	float greenValue = sin(timeValue) / 2.0f + 0.5f;
+	int vertexColorLocation = glGetUniformLocation(basicProgram, "ourColor");
+	glUniform3f(vertexColorLocation, 0.0f, greenValue, 0.0f);
+
+	glBindVertexArray(triangleBuffer);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+		
+	glfwSwapBuffers(window);	
 }
 
 
 void cleanup()
 {
+	glDeleteProgram(basicProgram);
 	glfwDestroyWindow(window);
 }
 

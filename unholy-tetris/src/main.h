@@ -10,6 +10,7 @@ int postInit();
 
 int loadTextures();
 int loadShaders();
+int loadBuffers();
 
 void tick();
 void cleanup();
@@ -21,4 +22,5 @@ void frameBufferSizeChange(GLFWwindow* window, int width, int height);
 
 // Typedef
 typedef unsigned int* TextureBuffer;
-typedef unsigned int* ShaderBuffer;
+typedef unsigned int Program;
+typedef unsigned int VertexBuffer;

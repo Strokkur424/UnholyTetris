@@ -3,7 +3,7 @@
 
 struct shader
 {
-	unsigned int* (*createShader)(GLenum, const char*);
+	unsigned int* (*createProgram)(const char*, const char*);
 };
 
 extern const struct shader Shader;
