@@ -52,3 +52,5 @@ Mkfile.old
 dkms.conf
 /.vs/unholy-tetris
 /unholy-tetris/x64/Debug
+
+cmake-build-debug
